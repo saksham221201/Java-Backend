@@ -1,7 +1,28 @@
 package com.nagarro.employee_module.controller;
 
-import org.springframework.stereotype.Controller;
+import com.nagarro.employee_module.entity.Employee;
+import com.nagarro.employee_module.service.EmployeeService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.util.List;
+
+@RestController
+@RequestMapping("/v1/api/employees")
 public class EmployeeController {
+
+    private final EmployeeService employeeService;
+
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Employee>> getAllEmployees() {
+        List<Employee> employees = employeeService.getAllEmployees();
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
 }
