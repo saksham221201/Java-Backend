@@ -26,34 +26,34 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.employeeDao = employeeDao;
     }
 
-//    @Override
-//    public List<EmployeeDTO> getAllEmployees() {
-//        List<Employee> employees = employeeDao.findAll();
-//        return employees.stream()
-//                .map(this::convertToDTO)
-//                .collect(Collectors.toList());
-//    }
+    @Override
+    public List<EmployeeDTO> getAllEmployees() {
+        List<Employee> employees = employeeDao.findAll();
+        return employees.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
 
-//    @Override
-//    public EmployeeDTO getEmployeeById(int employeeId) {
-//        Optional<Employee> optionalEmployee = employeeDao.findById(employeeId);
-//        if (optionalEmployee.isEmpty()) {
-//            throw new RecordNotFoundException("Employee with id " + employeeId + " not found!", HttpStatus.NOT_FOUND.value());
-//        }
-//        return convertToDTO(optionalEmployee.get());
-//    }
+    @Override
+    public EmployeeDTO getEmployeeById(int employeeId) {
+        Optional<Employee> optionalEmployee = employeeDao.findById(employeeId);
+        if (optionalEmployee.isEmpty()) {
+            throw new RecordNotFoundException("Employee with id " + employeeId + " not found!", HttpStatus.NOT_FOUND.value());
+        }
+        return convertToDTO(optionalEmployee.get());
+    }
 
-//    private EmployeeDTO convertToDTO(Employee employee) {
-//        return EmployeeDTO
-//                .builder()
-//                .employeeId(employee.getEmployeeId())
-//                .employeeName(employee.getEmployeeName())
-//                .address(employee.getAddress())
-//                .emails(employee.getEmails())
-//                .employeeMobiles(employee.getEmployeeMobiles())
-//                .department(employee.getDepartment())
-//                .build();
-//    }
+    private EmployeeDTO convertToDTO(Employee employee) {
+        return EmployeeDTO
+                .builder()
+                .employeeId(employee.getEmployeeId())
+                .employeeName(employee.getEmployeeName())
+                .address(employee.getAddress())
+                .emails(employee.getEmails())
+                .employeeMobiles(employee.getEmployeeMobiles())
+                .department(employee.getDepartment())
+                .build();
+    }
 
 
     @Override
@@ -61,13 +61,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         Set<MobileNumber> mobileNumbers = employeeDTO.getEmployeeMobiles().stream()
                 .map(n->MobileNumber.builder()
-                        .number(n)
+                        .number(n.getNumber())
                         .build())
                 .collect(Collectors.toSet());
 
         Set<Email> emails = employeeDTO.getEmails().stream()
                 .map(e->Email.builder()
-                        .employeeEmail(e)
+                        .employeeEmail(e.getEmployeeEmail())
                         .build())
                 .collect(Collectors.toSet());
 

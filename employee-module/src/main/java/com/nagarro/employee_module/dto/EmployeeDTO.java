@@ -14,7 +14,7 @@ public class EmployeeDTO {
     private String employeeName;
     private String address;
     private String department;
-    private Set<String> emails;
-    private Set<String> employeeMobiles;
+    private Set<Email> emails;
+    private Set<MobileNumber> employeeMobiles;
 
 }
