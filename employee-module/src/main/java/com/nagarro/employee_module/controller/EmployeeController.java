@@ -1,32 +1,41 @@
 package com.nagarro.employee_module.controller;
 
-import com.nagarro.employee_module.dto.EmployeeResponseDTO;
+import com.nagarro.employee_module.dto.EmployeeDTO;
+import com.nagarro.employee_module.entity.Employee;
 import com.nagarro.employee_module.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/employees")
 public class EmployeeController {
 
     private final EmployeeService employeeService;
 
+    @Autowired
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
-    public ResponseEntity<List<EmployeeResponseDTO>> getAllEmployees() {
-        List<EmployeeResponseDTO> employees = employeeService.getAllEmployees();
-        return new ResponseEntity<>(employees, HttpStatus.OK);
+//    public ResponseEntity<List<EmployeeDTO>> getAllEmployees() {
+//        List<EmployeeDTO> employees = employeeService.getAllEmployees();
+//        return new ResponseEntity<>(employees, HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/id/{}")
+//    public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable int employeeId) {
+//        EmployeeDTO employee = employeeService.getEmployeeById(employeeId);
+//        return new ResponseEntity<>(employee, HttpStatus.OK);
+//    }
+
+    @PostMapping
+    public ResponseEntity<Employee> createNewEmployee(@RequestBody EmployeeDTO employeeDTO){
+        Employee newEmployee = employeeService.createEmployee(employeeDTO);
+        return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
     }
 
-    @GetMapping("/id/{}")
-    public ResponseEntity<EmployeeResponseDTO> getEmployeeById(@PathVariable int employeeId) {
-        EmployeeResponseDTO employee = employeeService.getEmployeeById(employeeId);
-        return new ResponseEntity<>(employee, HttpStatus.OK);
-    }
 }

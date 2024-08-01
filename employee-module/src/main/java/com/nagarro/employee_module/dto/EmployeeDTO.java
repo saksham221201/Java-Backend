@@ -9,12 +9,12 @@ import java.util.Set;
 
 @Data
 @Builder
-public class EmployeeResponseDTO {
+public class EmployeeDTO {
     private int employeeId;
     private String employeeName;
     private String address;
     private String department;
-    private Set<Email> emails;
-    private Set<MobileNumber> employeeMobiles;
+    private Set<String> emails;
+    private Set<String> employeeMobiles;
 
 }
