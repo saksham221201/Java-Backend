@@ -1,0 +1,42 @@
+package com.nagarro.employee_module.service.impl;
+
+import com.nagarro.employee_module.dto.EmployeeDTO;
+import com.nagarro.employee_module.entity.Employee;
+import com.nagarro.employee_module.exception.RecordNotFoundException;
+import com.nagarro.employee_module.repository.EmployeeRepository;
+import com.nagarro.employee_module.service.GetEmployeeByIdService;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+public class GetEmployeeByIdServiceImpl implements GetEmployeeByIdService {
+
+    private final EmployeeRepository employeeRepository;
+
+    public GetEmployeeByIdServiceImpl(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
+
+    @Override
+    public EmployeeDTO getEmployeeById(int employeeId) {
+        Optional<Employee> optionalEmployee = employeeRepository.findById(employeeId);
+        if (optionalEmployee.isEmpty()) {
+            throw new RecordNotFoundException("Employee with id " + employeeId + " not found!", HttpStatus.NOT_FOUND.value());
+        }
+        return convertToDTO(optionalEmployee.get());
+    }
+
+    private EmployeeDTO convertToDTO(Employee employee) {
+        return EmployeeDTO
+                .builder()
+                .employeeId(employee.getEmployeeId())
+                .employeeName(employee.getEmployeeName())
+                .address(employee.getAddress())
+                .emails(employee.getEmails())
+                .employeeMobiles(employee.getEmployeeMobiles())
+                .department(employee.getDepartment())
+                .build();
+    }
+}
