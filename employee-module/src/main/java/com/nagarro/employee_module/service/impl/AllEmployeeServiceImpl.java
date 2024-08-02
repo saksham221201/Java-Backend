@@ -3,18 +3,18 @@ package com.nagarro.employee_module.service.impl;
 import com.nagarro.employee_module.repository.EmployeeRepository;
 import com.nagarro.employee_module.dto.EmployeeDTO;
 import com.nagarro.employee_module.entity.Employee;
-import com.nagarro.employee_module.service.GetAllEmployeesService;
+import com.nagarro.employee_module.service.AllEmployeesService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class GetAllEmployeeServiceImpl implements GetAllEmployeesService {
+public class AllEmployeeServiceImpl implements AllEmployeesService {
 
     private final EmployeeRepository employeeRepository;
 
-    public GetAllEmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public AllEmployeeServiceImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 

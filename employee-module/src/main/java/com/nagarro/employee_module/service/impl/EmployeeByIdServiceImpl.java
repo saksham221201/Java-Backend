@@ -4,18 +4,18 @@ import com.nagarro.employee_module.dto.EmployeeDTO;
 import com.nagarro.employee_module.entity.Employee;
 import com.nagarro.employee_module.exception.RecordNotFoundException;
 import com.nagarro.employee_module.repository.EmployeeRepository;
-import com.nagarro.employee_module.service.GetEmployeeByIdService;
+import com.nagarro.employee_module.service.EmployeeByIdService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class GetEmployeeByIdServiceImpl implements GetEmployeeByIdService {
+public class EmployeeByIdServiceImpl implements EmployeeByIdService {
 
     private final EmployeeRepository employeeRepository;
 
-    public GetEmployeeByIdServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeByIdServiceImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 

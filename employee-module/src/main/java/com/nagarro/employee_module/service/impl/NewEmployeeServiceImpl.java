@@ -5,16 +5,16 @@ import com.nagarro.employee_module.entity.Email;
 import com.nagarro.employee_module.entity.Employee;
 import com.nagarro.employee_module.entity.MobileNumber;
 import com.nagarro.employee_module.repository.EmployeeRepository;
-import com.nagarro.employee_module.service.CreateEmployeeService;
+import com.nagarro.employee_module.service.NewEmployeeService;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class CreateEmployeeServiceImpl implements CreateEmployeeService {
+public class NewEmployeeServiceImpl implements NewEmployeeService {
 
     private final EmployeeRepository employeeRepository;
 
-    public CreateEmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public NewEmployeeServiceImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 

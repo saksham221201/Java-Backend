@@ -4,6 +4,6 @@ import com.nagarro.employee_module.dto.EmployeeDTO;
 import com.nagarro.employee_module.entity.Employee;
 
 @FunctionalInterface
-public interface CreateEmployeeService {
+public interface NewEmployeeService {
     Employee createEmployee(EmployeeDTO employee);
 }
