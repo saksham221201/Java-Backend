@@ -35,6 +35,7 @@ public class EmployeeByIdServiceImpl implements EmployeeByIdService {
                 .employeeName(employee.getEmployeeName())
                 .address(employee.getAddress())
                 .emails(employee.getEmails())
+                .salary(employee.getSalary())
                 .employeeMobiles(employee.getEmployeeMobiles())
                 .department(employee.getDepartment())
                 .build();
