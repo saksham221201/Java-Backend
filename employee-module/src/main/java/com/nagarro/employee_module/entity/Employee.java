@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.antlr.v4.runtime.misc.NotNull;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,12 +29,10 @@ public class Employee {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "employeeId")
-    @NotBlank
     private Set<Email> emails = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "employeeId")
-    @NotBlank
     private Set<MobileNumber> employeeMobiles = new HashSet<>();
 
 }
