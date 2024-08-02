@@ -23,6 +23,10 @@ public class NewEmployeeServiceImpl implements NewEmployeeService {
     @Override
     public Employee createEmployee(EmployeeDTO employeeDTO) {
 
+        if (employeeDTO.getSalary()==0.0){
+            throw new IllegalArgumentException("Employee salary cant be 0");
+        }
+
         Set<MobileNumber> mobileNumbers = employeeDTO.getEmployeeMobiles().stream()
                 .map(n->MobileNumber.builder()
                         .number(n.getNumber())
@@ -39,6 +43,7 @@ public class NewEmployeeServiceImpl implements NewEmployeeService {
                 .employeeName(employeeDTO.getEmployeeName())
                 .employeeMobiles(mobileNumbers)
                 .emails(emails)
+                .salary(employeeDTO.getSalary())
                 .address(employeeDTO.getAddress())
                 .department(employeeDTO.getDepartment())
                 .build();
