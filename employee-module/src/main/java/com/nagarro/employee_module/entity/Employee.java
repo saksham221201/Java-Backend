@@ -2,8 +2,6 @@ package com.nagarro.employee_module.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,18 +27,12 @@ public class Employee {
     @NotBlank
     private String department;
 
-    private double salary;
-
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "employeeId")
-    @NotNull
-    @NotEmpty
     private Set<Email> emails = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "employeeId")
-    @NotNull
-    @NotEmpty
     private Set<MobileNumber> employeeMobiles = new HashSet<>();
 
 }
