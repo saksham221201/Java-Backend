@@ -3,6 +3,7 @@ package com.nagarro.employee_module.controller;
 import com.nagarro.employee_module.dto.EmployeeDTO;
 import com.nagarro.employee_module.entity.Employee;
 import com.nagarro.employee_module.service.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEntity<Employee> createNewEmployee(@RequestBody EmployeeDTO employeeDTO){
+    public ResponseEntity<Employee> createNewEmployee(@Valid @RequestBody EmployeeDTO employeeDTO){
         Employee newEmployee = employeeService.createEmployee(employeeDTO);
         return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
     }

@@ -7,6 +7,8 @@ import com.nagarro.employee_module.entity.Employee;
 import com.nagarro.employee_module.entity.MobileNumber;
 import com.nagarro.employee_module.exception.RecordNotFoundException;
 import com.nagarro.employee_module.service.EmployeeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
+
+    private Logger logger = LoggerFactory.getLogger(EmployeeServiceImpl.class);
 
     private final EmployeeDao employeeDao;
 
@@ -31,7 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> employees = employeeDao.findAll();
         return employees.stream()
                 .map(this::convertToDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -58,7 +62,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee createEmployee(EmployeeDTO employeeDTO) {
-
+        String ename = employeeDTO.getEmployeeName();
+        logger.info("Ename : {}",ename);
         Set<MobileNumber> mobileNumbers = employeeDTO.getEmployeeMobiles().stream()
                 .map(n->MobileNumber.builder()
                         .number(n.getNumber())
@@ -71,6 +76,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                         .build())
                 .collect(Collectors.toSet());
 
+        //null field validation using optional
         Employee employee = Employee.builder()
                 .employeeName(employeeDTO.getEmployeeName())
                 .employeeMobiles(mobileNumbers)
