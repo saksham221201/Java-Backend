@@ -1,23 +1,17 @@
 package com.nagarro.employee_module.exception;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class RecordNotFoundException extends RuntimeException {
-	private String error;
-	private int code;
+	private String errorDescription;
+	private int errorCode;
 
-	public RecordNotFoundException(String error, int code) {
-		this.error = error;
-		this.code = code;
-	}
-
-    public void setError(String error) {
-		this.error = error;
-	}
-
-    public void setCode(int code) {
-		this.code = code;
+	public RecordNotFoundException(String errorDescription, int errorCode) {
+		this.errorDescription = errorDescription;
+		this.errorCode = errorCode;
 	}
 }
 
