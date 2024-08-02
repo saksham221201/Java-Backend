@@ -23,7 +23,7 @@ public class AllEmployeeServiceImpl implements AllEmployeesService {
         List<Employee> employees = employeeRepository.findAll();
         return employees.stream()
                 .map(this::convertToDTO)
-                .collect(Collectors.toList());
+                .toList();
         // Empty List Check
     }
 
