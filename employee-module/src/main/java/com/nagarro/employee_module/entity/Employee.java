@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,7 +29,6 @@ public class Employee {
     private String address;
     @NotBlank
     private String department;
-
     private double salary;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -42,5 +42,7 @@ public class Employee {
     @NotNull
     @NotEmpty
     private Set<MobileNumber> employeeMobiles = new HashSet<>();
+
+    private LocalDate date;
 
 }

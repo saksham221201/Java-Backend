@@ -8,6 +8,7 @@ import com.nagarro.employee_module.repository.EmployeeRepository;
 import com.nagarro.employee_module.service.NewEmployeeService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,18 +24,20 @@ public class NewEmployeeServiceImpl implements NewEmployeeService {
     @Override
     public Employee createEmployee(EmployeeDTO employeeDTO) {
 
-        if (employeeDTO.getSalary()==0.0){
-            throw new IllegalArgumentException("Employee salary cant be 0");
+        if (employeeDTO.getSalary() == 0.0){
+            throw new IllegalArgumentException("Employee salary can't be 0");
         }
 
         Set<MobileNumber> mobileNumbers = employeeDTO.getEmployeeMobiles().stream()
                 .map(n->MobileNumber.builder()
+                        .mobileId(n.getMobileId())
                         .number(n.getNumber())
                         .build())
                 .collect(Collectors.toSet());
 
         Set<Email> emails = employeeDTO.getEmails().stream()
                 .map(e->Email.builder()
+                        .emailId(e.getEmailId())
                         .employeeEmail(e.getEmployeeEmail())
                         .build())
                 .collect(Collectors.toSet());
@@ -46,6 +49,7 @@ public class NewEmployeeServiceImpl implements NewEmployeeService {
                 .salary(employeeDTO.getSalary())
                 .address(employeeDTO.getAddress())
                 .department(employeeDTO.getDepartment())
+                .date(LocalDate.now())
                 .build();
 
         return employeeRepository.save(employee);

@@ -1,13 +1,14 @@
 package com.nagarro.employee_module.service.impl;
 
+import com.nagarro.employee_module.exception.BadRequestException;
 import com.nagarro.employee_module.repository.EmployeeRepository;
 import com.nagarro.employee_module.dto.EmployeeDTO;
 import com.nagarro.employee_module.entity.Employee;
 import com.nagarro.employee_module.service.AllEmployeesService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class AllEmployeeServiceImpl implements AllEmployeesService {
@@ -21,10 +22,12 @@ public class AllEmployeeServiceImpl implements AllEmployeesService {
     @Override
     public List<EmployeeDTO> getAllEmployees() {
         List<Employee> employees = employeeRepository.findAll();
+        if (employees.isEmpty()) {
+            throw new BadRequestException("There are no employees in the database", HttpStatus.BAD_REQUEST.value());
+        }
         return employees.stream()
                 .map(this::convertToDTO)
                 .toList();
-        // Empty List Check
     }
 
     private EmployeeDTO convertToDTO(Employee employee) {

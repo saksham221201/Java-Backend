@@ -22,9 +22,10 @@ public class EmployeeController {
     private final EmployeesByDepartmentService employeesByDepartmentService;
     private final PatchEmployeeService patchEmployeeService;
     private final DeleteAllEmployeesService deleteAllEmployeesService;
+    private final DeleteByIdService deleteByIdService;
 
     // It provides immutability and null pointer exception
-    public EmployeeController(NewEmployeeService createEmployeeService, AllEmployeesService getAllEmployeesService, EmployeeByIdService getEmployeeByIdService, UpdateEmployeeService updateEmployeeService, EmployeesByDepartmentService employeesByDepartmentService, PatchEmployeeService patchEmployeeService, DeleteAllEmployeesService deleteAllEmployeesService) {
+    public EmployeeController(NewEmployeeService createEmployeeService, AllEmployeesService getAllEmployeesService, EmployeeByIdService getEmployeeByIdService, UpdateEmployeeService updateEmployeeService, EmployeesByDepartmentService employeesByDepartmentService, PatchEmployeeService patchEmployeeService, DeleteAllEmployeesService deleteAllEmployeesService, DeleteByIdService deleteByIdService) {
         this.createEmployeeService = createEmployeeService;
         this.getAllEmployeesService = getAllEmployeesService;
         this.getEmployeeByIdService = getEmployeeByIdService;
@@ -32,6 +33,7 @@ public class EmployeeController {
         this.employeesByDepartmentService=employeesByDepartmentService;
         this.patchEmployeeService=patchEmployeeService;
         this.deleteAllEmployeesService=deleteAllEmployeesService;
+        this.deleteByIdService = deleteByIdService;
     }
 
     @GetMapping("/all")
@@ -62,6 +64,12 @@ public class EmployeeController {
     public ResponseEntity<Employee> updateEmployeeById(@Valid @PathVariable int employeeId, @RequestBody EmployeeDTO employeeDTO) {
         Employee updatedEmployee = updateEmployeeService.updateEmployee(employeeId, employeeDTO);
         return new ResponseEntity<>(updatedEmployee, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{employeeId}")
+    public ResponseEntity<Void> deleteById(@PathVariable int employeeId) {
+        deleteByIdService.deleteById(employeeId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PatchMapping("/patch/{employeeId}")
