@@ -19,14 +19,16 @@ public class EmployeeController {
     private final EmployeeByIdService getEmployeeByIdService;
     private final UpdateEmployeeService updateEmployeeService;
     private final EmployeesByDepartmentService employeesByDepartmentService;
+    private final DeleteByIdService deleteByIdService;
 
     // It provides immutability and null pointer exception
-    public EmployeeController(NewEmployeeService createEmployeeService, AllEmployeesService getAllEmployeesService, EmployeeByIdService getEmployeeByIdService, UpdateEmployeeService updateEmployeeService, EmployeesByDepartmentService employeesByDepartmentService) {
+    public EmployeeController(NewEmployeeService createEmployeeService, AllEmployeesService getAllEmployeesService, EmployeeByIdService getEmployeeByIdService, UpdateEmployeeService updateEmployeeService, EmployeesByDepartmentService employeesByDepartmentService, DeleteByIdService deleteByIdService) {
         this.createEmployeeService = createEmployeeService;
         this.getAllEmployeesService = getAllEmployeesService;
         this.getEmployeeByIdService = getEmployeeByIdService;
         this.updateEmployeeService = updateEmployeeService;
         this.employeesByDepartmentService=employeesByDepartmentService;
+        this.deleteByIdService = deleteByIdService;
     }
 
     @GetMapping("/all")
@@ -57,5 +59,11 @@ public class EmployeeController {
     public ResponseEntity<Employee> updateEmployeeById(@Valid @PathVariable int employeeId, @RequestBody EmployeeDTO employeeDTO) {
         Employee updatedEmployee = updateEmployeeService.updateEmployee(employeeId, employeeDTO);
         return new ResponseEntity<>(updatedEmployee, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{employeeId}")
+    public ResponseEntity<Void> deleteById(@PathVariable int employeeId) {
+        deleteByIdService.deleteById(employeeId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

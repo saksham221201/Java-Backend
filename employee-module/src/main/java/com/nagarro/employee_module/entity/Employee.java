@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,5 +42,7 @@ public class Employee {
     @NotNull
     @NotEmpty
     private Set<MobileNumber> employeeMobiles = new HashSet<>();
+
+    private LocalDate date;
 
 }

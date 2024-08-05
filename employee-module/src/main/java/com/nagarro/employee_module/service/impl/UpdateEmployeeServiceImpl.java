@@ -5,8 +5,6 @@ import com.nagarro.employee_module.entity.Employee;
 import com.nagarro.employee_module.exception.RecordNotFoundException;
 import com.nagarro.employee_module.repository.EmployeeRepository;
 import com.nagarro.employee_module.service.UpdateEmployeeService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +14,6 @@ import java.util.Optional;
 public class UpdateEmployeeServiceImpl implements UpdateEmployeeService {
 
     private final EmployeeRepository employeeRepository;
-
-    Logger logger = LoggerFactory.getLogger(UpdateEmployeeServiceImpl.class);
 
     public UpdateEmployeeServiceImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
