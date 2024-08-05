@@ -21,4 +21,6 @@ public class Email {
     private int id;
     private String employeeEmail;
 
+    public Email(String s) {
+    }
 }
