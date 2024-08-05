@@ -10,10 +10,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(ConstraintViolationException.class)
+    @ExceptionHandler({ConstraintViolationException.class, IllegalArgumentException.class})
     public ResponseEntity<ErrorResponse> constraintViolationExceptionHandler(Exception e){
         ErrorResponse errorResponse = new ErrorResponse(e.getMessage(), HttpStatus.BAD_REQUEST.value());
-
         return new ResponseEntity<>(errorResponse,HttpStatus.BAD_REQUEST);
     }
 
@@ -21,5 +20,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> resourceNotFoundExceptionHandler(RecordNotFoundException e){
         ErrorResponse errorResponse = new ErrorResponse(e.getErrorDescription(), e.getErrorCode());
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ErrorResponse> badRequestExceptionHandler(BadRequestException e){
+        ErrorResponse errorResponse = new ErrorResponse(e.getErrorDescription(), e.getErrorCode());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 }

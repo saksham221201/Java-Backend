@@ -23,8 +23,8 @@ public class NewEmployeeServiceImpl implements NewEmployeeService {
     @Override
     public Employee createEmployee(EmployeeDTO employeeDTO) {
 
-        if (employeeDTO.getSalary()==0.0){
-            throw new IllegalArgumentException("Employee salary cant be 0");
+        if (employeeDTO.getSalary() == 0.0){
+            throw new IllegalArgumentException("Employee salary can't be 0");
         }
 
         Set<MobileNumber> mobileNumbers = employeeDTO.getEmployeeMobiles().stream()
