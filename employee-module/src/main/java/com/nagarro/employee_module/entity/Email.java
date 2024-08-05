@@ -19,4 +19,6 @@ public class Email {
     @NotBlank
     private String employeeEmail;
 
+    public Email(String s) {
+    }
 }
