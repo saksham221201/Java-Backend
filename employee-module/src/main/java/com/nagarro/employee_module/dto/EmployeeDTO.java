@@ -5,6 +5,7 @@ import com.nagarro.employee_module.entity.MobileNumber;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 @Data
@@ -17,5 +18,6 @@ public class EmployeeDTO {
     private double salary;
     private Set<Email> emails;
     private Set<MobileNumber> employeeMobiles;
+    private LocalDate date;
 
 }

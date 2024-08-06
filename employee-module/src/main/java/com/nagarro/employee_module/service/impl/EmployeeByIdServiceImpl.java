@@ -8,6 +8,7 @@ import com.nagarro.employee_module.service.EmployeeByIdService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -38,6 +39,7 @@ public class EmployeeByIdServiceImpl implements EmployeeByIdService {
                 .salary(employee.getSalary())
                 .employeeMobiles(employee.getEmployeeMobiles())
                 .department(employee.getDepartment())
+                .date(LocalDate.now())
                 .build();
     }
 }

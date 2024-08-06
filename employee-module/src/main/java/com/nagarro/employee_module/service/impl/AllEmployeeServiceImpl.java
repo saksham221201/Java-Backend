@@ -8,6 +8,7 @@ import com.nagarro.employee_module.service.AllEmployeesService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -40,6 +41,7 @@ public class AllEmployeeServiceImpl implements AllEmployeesService {
                 .salary(employee.getSalary())
                 .employeeMobiles(employee.getEmployeeMobiles())
                 .department(employee.getDepartment())
+                .date(LocalDate.now())
                 .build();
     }
 }
