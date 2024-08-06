@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -82,6 +83,7 @@ public class PatchEmployeeServiceImpl implements PatchEmployeeService {
                 .department(employee.getDepartment())
                 .emails(employee.getEmails())
                 .employeeMobiles(employee.getEmployeeMobiles())
+                .date(LocalDate.now())
                 .build();
     }
 }
