@@ -6,6 +6,7 @@ import com.nagarro.employee_module.repository.EmployeeRepository;
 import com.nagarro.employee_module.service.EmployeesByDepartmentService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class EmployeesByDepartmentServiceImpl implements EmployeesByDepartmentSe
                 .department(employee.getDepartment())
                 .emails(employee.getEmails())
                 .employeeMobiles(employee.getEmployeeMobiles())
+                .date(LocalDate.now())
                 .build();
     }
 }

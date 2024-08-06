@@ -8,6 +8,7 @@ import com.nagarro.employee_module.service.UpdateEmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -36,6 +37,7 @@ public class UpdateEmployeeServiceImpl implements UpdateEmployeeService {
         updatedEmployee.setSalary(employeeDTO.getSalary());
         updatedEmployee.setEmployeeMobiles(employeeDTO.getEmployeeMobiles());
         updatedEmployee.setEmails(employeeDTO.getEmails());
+        updatedEmployee.setDate(LocalDate.now());
 
         return employeeRepository.save(updatedEmployee);
     }
