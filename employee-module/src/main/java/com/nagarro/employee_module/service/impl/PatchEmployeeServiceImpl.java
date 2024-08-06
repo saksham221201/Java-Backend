@@ -3,6 +3,7 @@ package com.nagarro.employee_module.service.impl;
 import com.nagarro.employee_module.dto.EmployeeDTO;
 import com.nagarro.employee_module.entity.Email;
 import com.nagarro.employee_module.entity.Employee;
+import com.nagarro.employee_module.entity.MobileNumber;
 import com.nagarro.employee_module.exception.RecordNotFoundException;
 import com.nagarro.employee_module.repository.EmployeeRepository;
 import com.nagarro.employee_module.service.PatchEmployeeService;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
+import java.util.Objects;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -44,20 +46,59 @@ public class PatchEmployeeServiceImpl implements PatchEmployeeService {
                 case "emails":
                     if(value instanceof List){
                         List<Map<String,Object>> emailList = (List<Map<String,Object>>) value;
+
+                        Map<Integer,Email> existingEmails = emp.getEmails().stream()
+                                .collect(Collectors.toMap(Email::getEmailId, e->e));
+
                         Set<Email> patchedEmails = emailList.stream()
                                 .map(emailMap->{
-                                    Integer emailId = Integer.parseInt(emailMap.get("id").toString());
-                                    String employeeEmails = (String) emailMap.get("employeeEmail");
-                                    Optional<Email> currEmail = emp.getEmails().stream()
-                                            .findFirst();
-                                    if (currEmail.isPresent()){
-                                        currEmail.get().setEmployeeEmail(employeeEmails);
-                                        return currEmail.get();
+                                    Integer emailId = Integer.parseInt(emailMap.get("emailId").toString());
+
+                                    String employeeEmail = (String) emailMap.get("employeeEmail");
+                                    if(emailId != null && employeeEmail != null){
+                                        //if emailId already exists, update email
+                                        Email currEmail = existingEmails.get(emailId);
+                                        if (currEmail != null){
+                                            currEmail.setEmployeeEmail(employeeEmail);
+                                            return currEmail;
+                                        }
+                                        //if emailId doesnt exist, make a new one
+                                        return new Email(emailId,employeeEmail);
                                     }
-                                    return new Email(employeeEmails);
-                                }).collect(Collectors.toSet());
+                                    return null;
+                                }).filter(Objects::nonNull)
+                                .collect(Collectors.toSet());
 
                         emp.setEmails(patchedEmails);
+                    }
+                    break;
+                case "employeeMobiles":
+                    if(value instanceof List){
+                        List<Map<String,Object>> mobileList = (List<Map<String,Object>>) value;
+
+                        Map<Integer, MobileNumber> existingMobiles = emp.getEmployeeMobiles().stream()
+                                .collect(Collectors.toMap(MobileNumber::getMobileId, m->m));
+
+                        Set<MobileNumber> patchedMobiles = mobileList.stream()
+                                .map(mobileMap->{
+                                    Integer mobileId = Integer.parseInt(mobileMap.get("mobileId").toString());
+
+                                    String number = (String) mobileMap.get("number");
+                                    if(mobileId != null && number != null){
+                                        //if emailId already exists, update email
+                                        MobileNumber currMobile = existingMobiles.get(mobileId);
+                                        if (currMobile != null){
+                                            currMobile.setNumber(number);
+                                            return currMobile;
+                                        }
+                                        //if emailId doesnt exist, make a new one
+                                        return new MobileNumber(mobileId,number);
+                                    }
+                                    return null;
+                                }).filter(Objects::nonNull)
+                                .collect(Collectors.toSet());
+
+                        emp.setEmployeeMobiles(patchedMobiles);
                     }
                     break;
                 default:
